@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyTiles</string>
+    <string name="volume_tile_name">Volume Panel</string>
+    <string name="permission_notification_toast">Sorry, I need the permission ALWAYS GRANTED to modify audio settings (RUNTIME doesn\'t work). please check it at app detail settings.</string>
+    <string name="start_app_detail_failed_toast">Sorry, show app detail settings failed. Please long press the tile and open it.</string>
+    <string name="status_bar_collapse_failed_toast">Sorry, I can\'t collapse status bar.</string>
+</resources>

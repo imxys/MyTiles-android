@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">我的磁贴</string>
+    <string name="volume_tile_name">音量面板</string>
+    <string name="permission_notification_toast">抱歉，我需要“始终允许”媒体音量控制权限（仅在使用中允许无效果）。请进入应用权限设置帮我设置。</string>
+    <string name="start_app_detail_failed_toast">抱歉，应用详情界面打开失败了。请长按磁贴自行打开。</string>
+    <string name="status_bar_collapse_failed_toast">抱歉，没能自动折叠通知栏下拉菜单。</string>
+</resources>
