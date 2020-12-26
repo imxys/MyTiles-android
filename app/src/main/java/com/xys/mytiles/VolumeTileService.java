@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.provider.Settings;
+import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,11 +17,34 @@ public class VolumeTileService extends TileService {
     String TAG = VolumeTileService.class.getSimpleName();
 
     @Override
+    public void onStartListening() {
+        super.onStartListening();
+        Tile tile = getQsTile();
+        if (tile == null) {
+            Log.w(TAG, "onStartListening getQsTile == null");
+            return;
+        }
+        Log.i(TAG, "onStartListening current state: " + tile.getState());
+        if (tile.getState() == Tile.STATE_UNAVAILABLE) {
+            tile.setState(Tile.STATE_INACTIVE);
+        }
+        tile.updateTile();
+    }
+
+    @Override
+    public void onStopListening() {
+        super.onStopListening();
+        Log.i(TAG, "onStopListening");
+        updateTile();
+    }
+
+    @Override
     public void onClick() {
         final String CONFIG_PERMISSION_NOTIFIED = "PermissionNotified";
 
         super.onClick();
         Log.i(TAG, "onClick");
+
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         Object statusBarManager = getSystemService("statusbar");
         SharedPreferences sharedPreferences = getSharedPreferences("config", Context.MODE_APPEND);
@@ -50,6 +74,8 @@ public class VolumeTileService extends TileService {
             Toast.makeText(this, R.string.status_bar_collapse_failed_toast, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
+        updateTile();
     }
 
     /**
@@ -72,5 +98,14 @@ public class VolumeTileService extends TileService {
             e.printStackTrace();
         }
         Toast.makeText(this, R.string.permission_notification_toast, Toast.LENGTH_LONG).show();
+    }
+
+    private void updateTile() {
+        Tile tile = getQsTile();
+        if (tile == null) {
+            Log.w(TAG, "updateTile tile == null");
+            return;
+        }
+        tile.updateTile();
     }
 }
